@@ -51,7 +51,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-20.04"]
+        os: ["ubuntu-20.04", "windows-2019"]
         elixir: ["1.14", "1.13", "1.12"]
         otp: ["25", "24", "23"]
         exclude:
@@ -66,6 +66,9 @@ jobs:
           otp-version: ${{ matrix.otp }}
           elixir-version: ${{ matrix.elixir }}
           version-type: strict
+
+      - uses: egor-tensin/vs-shell@v2
+        if: runner.os == 'Windows'
 
       - name: Restore cached deps
         uses: actions/cache@v3
